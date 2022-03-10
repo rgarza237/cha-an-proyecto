@@ -7,9 +7,9 @@ const PORT = process.env.PORT || 8080;
 
 dbConnect()
 .then(() => {
-    console.log("Chaan database connected");
+    console.log("Chaan database connected :D");
     server.listen(PORT, () => {
-        console.log("server running on port 8080");
+        console.log("server running on port 8080 <3");
     });
 })
 .catch((error) => {
