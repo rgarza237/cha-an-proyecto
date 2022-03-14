@@ -1,17 +1,17 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const server = require('./src/server')
-const dbConnect = require('./src/lib/db');
+const server = require("./src/server");
+const dbConnect = require("./src/lib/db");
 
 const PORT = process.env.PORT || 8080;
 
 dbConnect()
-.then(() => {
+  .then(() => {
     console.log("Chaan database connected :D");
     server.listen(PORT, () => {
-        console.log("server running on port 8080 <3");
+      console.log("Server running on port 8080 <3");
     });
-})
-.catch((error) => {
+  })
+  .catch((error) => {
     console.log("Error: ", error);
-});
+  });
