@@ -6,9 +6,11 @@ const eventSchema = new mongoose.Schema({
     ref: "organizer",
   },
   eventType: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "typesEvents",
+    type: String,
     required: true,
+    trim: true,
+    enum: ["wedding", "birthday", "christening", "babyShower"],
+    default: "wedding",
   },
   eventNAmeHost1: {
     type: String,
@@ -26,35 +28,23 @@ const eventSchema = new mongoose.Schema({
   eventDate: {
     type: Date,
     default: Date.now,
-  },
-  eventLocation: {
-    adress1: {
-      type: String,
-      required: true,
-    },
-    adress2: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    lat: {
-      type: String,
-    },
-    long: {
-      type: String,
-    },
-  },
-  eventDressCode: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "typesDressCode",
     required: true,
+    trim: true,
+  },
+  eventLocation: adressSchema,
+  eventDressCode: {
+    type: String,
+    enum: ["formal", "informal", "casual", "business", "coktail"],
+    default: "formal",
+    required: true,
+    trim: true,
   },
   eventNumInvitee: {
     type: Number,
     required: true,
     min: 2,
     max: 500,
+    trim: true,
   },
 });
 
