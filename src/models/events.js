@@ -31,6 +31,12 @@ const eventSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  eventInvitation: {
+    type: String,
+    required: true,
+    enum: ["invitation01", "invitation02", "invitation03"],
+    default: "invitacion01",
+  },
   eventLocation: adressSchema,
   eventDressCode: {
     type: String,

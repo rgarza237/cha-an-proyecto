@@ -6,20 +6,22 @@ function getAllEvents() {
 
 // Para crear una boda, verificar si está correcta la función
 function createEvent(eventData) {
-  const eventData = {
+  const {
     eventType,
     eventNAmeHost1,
     eventNAmeHost2,
     eventDate,
+    eventInvitation,
     eventLocation,
     eventDressCode,
     eventNumInvitee,
-  };
+  } = eventData;
   return Event.create({
     eventType,
     eventNAmeHost1,
     eventNAmeHost2,
     eventDate,
+    eventInvitation,
     eventLocation,
     eventDressCode,
     eventNumInvitee,
