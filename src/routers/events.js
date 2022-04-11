@@ -25,15 +25,13 @@ router.get("/:id", async (request, response) => {
   try {
     const idEvent = request.params.id;
     const eventFound = await usesCasesEvents.getById(idEvent);
-
     if (!eventFound) throw new Error("Event not found");
 
     response.json({
       success: true,
       message: "Event found",
       data: {
-        event: eventFound,
-        organizer: eventOganizer,
+        events: eventFound,
       },
     });
   } catch (error) {

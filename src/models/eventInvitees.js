@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
 const eventInviteesSchema = new mongoose.Schema({
-  idEvent: {
+  event: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "events",
   },
   nameInvitee: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "invitee",
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 2,
+    maxlength: 50,
   },
   emailInvitee: {
     type: String,

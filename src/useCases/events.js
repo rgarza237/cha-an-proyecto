@@ -8,8 +8,9 @@ function getAllEvents() {
 function createEvent(eventData) {
   const {
     eventType,
-    eventNAmeHost1,
-    eventNAmeHost2,
+    eventName,
+    eventNameHost1,
+    eventNameHost2,
     eventDate,
     eventInvitation,
     eventLocation,
@@ -18,8 +19,9 @@ function createEvent(eventData) {
   } = eventData;
   return Event.create({
     eventType,
-    eventNAmeHost1,
-    eventNAmeHost2,
+    eventName,
+    eventNameHost1,
+    eventNameHost2,
     eventDate,
     eventInvitation,
     eventLocation,
@@ -28,7 +30,7 @@ function createEvent(eventData) {
   });
 }
 function getById(idEvent) {
-  return Event.findById(idEvent).populate("eventOrganizer");
+  return Event.findById(idEvent);
 }
 function patchById(idEvent, dataEvent) {
   return Event.findByIdAndUpdate(idEvent, dataEvent, { new: true });

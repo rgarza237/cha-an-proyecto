@@ -1,14 +1,21 @@
 const EventInvitees = require("../models/eventInvitees");
 
-function getAllInvitees() {
-  return EventInvitees.find({});
+function getAllInvitees(idEvent) {
+  return EventInvitees.find({ event: { _id: idEvent } }).populate("event", {
+    eventName: 1,
+  });
 }
 function getInviteeById(idInvitee) {
-  return EventInvitees.findById(idInvitee).populate("idEvent");
+  return EventInvitees.findById(idInvitee);
 }
-function createInvitee(inviteeData) {
-  const { nameInvitee, emailInvitee } = inviteeData;
-  return EventInvitees.create({ nameInvitee, emailInvitee });
+function createInvitee(inviteeData, idEvent) {
+  const { nameInvitee, emailInvitee, asignedTicketsInvitee } = inviteeData;
+  return EventInvitees.create({
+    nameInvitee,
+    emailInvitee,
+    asignedTicketsInvitee,
+    event: idEvent,
+  });
 }
 function updateById(idInvitee, dataUpdate) {
   return EventInvitees.findByIdAndUpdate(idInvitee, dataUpdate, { new: true });

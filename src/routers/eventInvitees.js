@@ -1,10 +1,11 @@
 const express = require("express");
 const useCasesInvitees = require("../useCases/eventInvitees");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.get("events/:id/invitees", async (request, response) => {
+router.get("/", async (request, response) => {
   try {
-    const allInvitees = await useCasesInvitees.getAllInvitees();
+    const idEvent = request.params.idEvent;
+    const allInvitees = await useCasesInvitees.getAllInvitees(idEvent);
 
     response.json({
       success: true,
@@ -21,9 +22,11 @@ router.get("events/:id/invitees", async (request, response) => {
     });
   }
 });
-router.get("events/:id/invitees/:id", async (request, response) => {
+router.get("/:idInvitee", async (request, response) => {
   try {
-    const idInvitee = request.params.id;
+    const idInvitee = request.params.idInvitee;
+    if (!idInvitee) throw new Error("Invitee not found");
+
     const inviteeFound = await useCasesInvitees.getInviteeById(idInvitee);
 
     response.json({
@@ -41,16 +44,26 @@ router.get("events/:id/invitees/:id", async (request, response) => {
     });
   }
 });
-router.post("events/:id/invitees", async (request, response) => {
+
+router.post("/", async (request, response) => {
   try {
     const dataInvitee = request.body;
-    const newInvitee = await useCasesInvitees.createInvitee(dataInvitee);
+    const idEvent = request.params.idEvent;
+
+    if (!idEvent || !dataInvitee) {
+      throw new Error("You need data");
+    }
+    const newInvitee = await useCasesInvitees.createInvitee(
+      dataInvitee,
+      idEvent
+    );
 
     response.json({
       success: true,
       message: "Invitee created sucessfully",
       data: {
         invitee: newInvitee,
+        event: idEvent,
       },
     });
   } catch (error) {
@@ -61,9 +74,9 @@ router.post("events/:id/invitees", async (request, response) => {
     });
   }
 });
-router.patch("events/:id/invitees/:id", async (request, response) => {
+router.patch("/:idInvitee", async (request, response) => {
   try {
-    const idInvitee = request.params.id;
+    const idInvitee = request.params.idInvitee;
     const dataUpdate = request.body;
     const inviteeUpdate = await useCasesInvitees.updateById(
       idInvitee,
@@ -86,9 +99,9 @@ router.patch("events/:id/invitees/:id", async (request, response) => {
     });
   }
 });
-router.delete("events/:id/invitees/:id", async (request, response) => {
+router.delete("/:idInvitee", async (request, response) => {
   try {
-    const idInvitee = request.params.id;
+    const idInvitee = request.params.idInvitee;
     const inviteeDeleted = await useCasesInvitees.deleteById(idInvitee);
 
     response.json({

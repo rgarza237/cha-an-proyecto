@@ -1,9 +1,17 @@
 const mongoose = require("mongoose");
+const adressSchema = require("./eventsLocation");
 
-const eventSchema = new mongoose.Schema({
+const eventsSchema = new mongoose.Schema({
   eventOrganizer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "organizer",
+  },
+  eventName: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 30,
+    trim: true,
   },
   eventType: {
     type: String,
@@ -12,14 +20,14 @@ const eventSchema = new mongoose.Schema({
     enum: ["wedding", "birthday", "christening", "babyShower"],
     default: "wedding",
   },
-  eventNAmeHost1: {
+  eventNameHost1: {
     type: String,
     required: true,
     minlength: 3,
     maxlength: 30,
     trim: true,
   },
-  eventNAmeHost2: {
+  eventNameHost2: {
     type: String,
     minlength: 3,
     maxlength: 30,
@@ -52,7 +60,13 @@ const eventSchema = new mongoose.Schema({
     max: 500,
     trim: true,
   },
+  invitees: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "eventInvitees",
+    },
+  ],
 });
 
-const model = mongoose.model("events", eventSchema);
+const model = mongoose.model("events", eventsSchema);
 module.exports = model;

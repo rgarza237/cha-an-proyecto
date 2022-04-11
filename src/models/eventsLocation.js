@@ -1,4 +1,6 @@
-const adressSchema = new mongoose.adressSchema({
+const mongoose = require("mongoose");
+
+const adressSchema = new mongoose.Schema({
   adress1: {
     type: String,
     required: true,
