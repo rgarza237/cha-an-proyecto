@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-//
 router.post("signup/invitee/:id", async (request, response) => {
   try {
     const inviteeData = request.params.id;
     const passwordToUpdate = request.body;
-    const passwordCreated = await useCasesInvitees.postInviteeById(inviteeData);
+    const passwordCreated = await useCasesInvitees.postAssistanceById(inviteeData);
 
     response.json({
       success: true,
@@ -27,7 +26,7 @@ router.patch("signup/invitee/:id", async (request, response) => {
   try {
     const idInvitee = request.params.id;
     const infoToUpdate = request.body;
-    const inviteeUpdate = await useCasesInvitee.patchInviteeById(
+    const inviteeUpdate = await useCasesInvitee.patchAssistanceById(
       idInvitee,
       infoToUpdate,
       { new: true}
@@ -49,8 +48,6 @@ router.patch("signup/invitee/:id", async (request, response) => {
     });
   }
 });
-
-// checar si el invitado se puede autoborrar (solo organizador puede eliminar)
 router.delete("signup/invitee/:id", async (request, response) => {
   try {
     const idInvitee = request.params.id;
