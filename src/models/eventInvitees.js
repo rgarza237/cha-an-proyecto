@@ -14,6 +14,10 @@ const eventInviteesSchema = new mongoose.Schema({
     required: true,
     match: /.+@.+\..+/,
   },
+  passwordInvitee:{
+    type:String,
+    required: true,
+  },
   asignedTicketsInvitee: {
     type: Number,
     required: true,

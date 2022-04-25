@@ -61,6 +61,33 @@ router.post("events/:id/invitees", async (request, response) => {
     });
   }
 });
+
+
+//login 
+router.post("events/:id/invitees/login", async (request, response) => {
+  try {
+    const { email, password } = request.body;
+    const token = await useCasesInvitee.loginInvitee(email, password);
+
+    response.json({
+      success: true,
+      message: "Invitee logged sucessfully",
+      data: {
+        invitee: token,
+      },
+    });
+  } catch (error) {
+    response.status(400);
+    response.json({
+      success: false,
+      message: "could not log in",
+      error: error.message
+    });
+  }
+});
+
+
+
 router.patch("events/:id/invitees/:id", async (request, response) => {
   try {
     const idInvitee = request.params.id;
@@ -106,5 +133,29 @@ router.delete("events/:id/invitees/:id", async (request, response) => {
     });
   }
 });
+
+//creo que puede ser un PUT
+router.post("signup/invitee/:id", async (request, response) => {
+  try {
+    const inviteeData = request.params.id;
+    const passwordToUpdate = request.body;
+    const passwordCreated = await useCasesInvitees.postInviteeById(inviteeData);
+
+    response.json({
+      success: true,
+      message: "Invitee password created sucessfully",
+      data: {
+        password: newPassword,
+      },
+    });
+  } catch (error) {
+    response.status(400);
+    response.json({
+      success: false,
+      message: "Invitee not create",
+    });
+  }
+});
+
 
 module.exports = router;
